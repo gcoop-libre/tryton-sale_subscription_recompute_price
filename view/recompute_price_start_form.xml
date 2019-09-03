@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!-- The COPYRIGHT file at the top level of this repository contains the full
+     copyright notices and license terms. -->
+<form>
+    <image name="tryton-dialog-information" xexpand="0" xfill="0"/>
+    <label string="Recompute Price Subscriptions"
+        id="advice" yalign="0.0" xalign="0.0" xexpand="1" colspan="3"/>
+    <field name="method" widget="selection" colspan="4"/>
+    <group id="methods">
+        <label name="unit_price"/>
+        <field name="unit_price"/>
+        <label name="percentage"/>
+        <field name="percentage" factor="100"/>
+    </group>
+    <field name="date"/>
+    <field name="categories" colspan="4"/>
+    <field name="services" colspan="4"/>
+    <field name="subscriptions" colspan="4"/>
+</form>
