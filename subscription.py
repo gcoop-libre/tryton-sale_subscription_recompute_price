@@ -130,7 +130,7 @@ class SubscriptionRecomputePrice(Wizard):
         method = getattr(Line, method_name)
         if method:
             domain = [
-                ('subscription_state', '=', 'running'),
+                ('subscription.state', '=', 'running'),
                 ('start_date', '<=', self.start.date),
                 ('subscription', 'not in', self.start.subscriptions),
                 ]
