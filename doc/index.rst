@@ -1,7 +1,7 @@
 Sale Subscription Recompute Price Module
 ========================================
 
-The account_dunning_mipago module of the Tryton application platform.
+The sale_subscription_recompute_price_mipago module of the Tryton application platform.
 
 Installing
 ----------
@@ -14,7 +14,7 @@ Support
 If you encounter any problems with this module, please don't hesitate to ask
 questions on the module bug tracker:
 
-  https://github.com/tryton-ar/account_dunning_mipago/issues
+  https://github.com/gcoop-libre/trytond-sale_subscription_recompute_price_mipago/issues
 
 For more information please contact the programmers at tryton-ar
 
