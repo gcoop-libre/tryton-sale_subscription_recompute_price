@@ -3,16 +3,18 @@
      copyright notices and license terms. -->
 <form>
     <image name="tryton-dialog-information" xexpand="0" xfill="0"/>
-    <label string="Recompute Price Subscriptions"
-        id="advice" yalign="0.0" xalign="0.0" xexpand="1" colspan="3"/>
     <field name="method" widget="selection" colspan="4"/>
     <group id="methods">
         <label name="unit_price"/>
         <field name="unit_price"/>
-        <label name="percentage"/>
-        <field name="percentage" factor="100"/>
+        <group id="percentage" colspan="3">
+            <label name="percentage"/>
+            <field name="percentage" factor="100"/>
+            <label id="percentage_" string="%"/>
+        </group>
     </group>
-    <field name="date"/>
+    <label name="start_date"/>
+    <field name="start_date"/>
     <field name="services" colspan="4"/>
     <field name="subscriptions" colspan="4"/>
 </form>

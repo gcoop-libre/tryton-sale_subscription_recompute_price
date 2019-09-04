@@ -56,8 +56,8 @@ class SubscriptionRecomputePriceStart(ModelView):
             ('fixed_amount', 'Fixed Amount'),
             ('percentage', 'Percentage'),
             ], 'Recompute Method', required=True)
-    date = fields.Date('Date', help="Update running subscriptios up to date",
-        required=True)
+    start_date = fields.Date('Start Date', help="Update running subscriptios"
+        " up to date")
     subscriptions = fields.Many2Many('sale.subscription', None, None,
         'Subscriptions', domain=[('state', '=', 'running')],
         help="Do not update those Subscriptions.")
@@ -80,9 +80,20 @@ class SubscriptionRecomputePriceStart(ModelView):
         return Decimal('0')
 
     @staticmethod
+    def default_percentage():
+        return float(0)
+
+    @staticmethod
     def default_method():
         return 'fixed_amount'
 
+    @classmethod
+    def view_attributes(cls):
+        return super(SubscriptionRecomputePriceStart, cls).view_attributes() + [
+            ('/form//label[@id="percentage_"]', 'states', {
+                    'invisible': Eval('method') != 'percentage',
+                    }),
+            ]
 
 class SubscriptionRecomputePrice(Wizard):
     'Subscription Recompute Price'
@@ -122,8 +133,8 @@ class SubscriptionRecomputePrice(Wizard):
                 ('subscription.state', '=', 'running'),
                 ('subscription', 'not in', self.start.subscriptions),
                 ]
-            if self.start.date:
-                domain.append(('start_date', '<=', self.start.date))
+            if self.start.start_date:
+                domain.append(('start_date', '<=', self.start.start_date))
             if self.start.services:
                 services = [s.id for s in list(self.start.services)]
                 domain.append(('service', 'in', services))
