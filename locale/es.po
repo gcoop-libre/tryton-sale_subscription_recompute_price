@@ -1,0 +1,71 @@
+#
+msgid ""
+msgstr "Content-Type: text/plain; charset=utf-8\n"
+
+msgctxt "field:sale.subscription.recompute_price.start,start_date:"
+msgid "Start Date"
+msgstr "Fecha inicial de servicio"
+
+msgctxt "field:sale.subscription.recompute_price.start,id:"
+msgid "ID"
+msgstr "Identificador"
+
+msgctxt "field:sale.subscription.recompute_price.start,method:"
+msgid "Recompute Method"
+msgstr "Método de recálculo"
+
+msgctxt "field:sale.subscription.recompute_price.start,percentage:"
+msgid "Percentage"
+msgstr "Porcentaje"
+
+msgctxt "field:sale.subscription.recompute_price.start,services:"
+msgid "Services"
+msgstr "Servicios"
+
+msgctxt "field:sale.subscription.recompute_price.start,subscriptions:"
+msgid "Subscriptions"
+msgstr "Suscripciones"
+
+msgctxt "field:sale.subscription.recompute_price.start,unit_price:"
+msgid "Unit Price"
+msgstr "Precio unitario"
+
+msgctxt "help:sale.subscription.recompute_price.start,start_date:"
+msgid "Update running subscriptios up to date"
+msgstr "Actualizar suscripciones activas hasta la fecha"
+
+msgctxt "help:sale.subscription.recompute_price.start,subscriptions:"
+msgid "Do not update those Subscriptions."
+msgstr "No actualizar estas suscripciones"
+
+msgctxt "model:ir.action,name:act_recompute_price"
+msgid "Recompute Price Subscriptions"
+msgstr "Recalcular precio de suscripciones"
+
+msgctxt "model:ir.ui.menu,name:menu_recompute_price"
+msgid "Recompute Price Subscriptions"
+msgstr "Recalcular precio de suscripciones"
+
+msgctxt "model:sale.subscription.recompute_price.start,name:"
+msgid "Recompute Price - Start"
+msgstr "Recalcular precio"
+
+msgctxt "selection:sale.subscription.recompute_price.start,method:"
+msgid "Fixed Amount"
+msgstr "Monto fijo"
+
+msgctxt "selection:sale.subscription.recompute_price.start,method:"
+msgid "Percentage"
+msgstr "Porcentaje"
+
+msgctxt "view:sale.subscription.recompute_price.start:"
+msgid "Recompute Price Subscriptions"
+msgstr "Recalcular precio de suscripciones"
+
+msgctxt "wizard_button:sale.subscription.recompute_price,start,end:"
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgctxt "wizard_button:sale.subscription.recompute_price,start,recompute_:"
+msgid "Recompute"
+msgstr "Recalcular"
