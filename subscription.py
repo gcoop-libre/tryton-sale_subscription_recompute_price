@@ -1,6 +1,6 @@
 # The COPYRIGHT file at the top level of this repository contains
 # the full copyright notices and license terms.
-from decimal import Decimal, ROUND_HALF_UP
+from decimal import Decimal
 
 from trytond.model import ModelView, fields
 from trytond.wizard import Wizard, StateView, StateTransition, Button
@@ -31,8 +31,7 @@ class Line(metaclass=PoolMeta):
 
     @classmethod
     def _recompute_price_by_percentage(cls, line, factor):
-        new_list_price = (line.unit_price * factor).quantize(
-            Decimal('1.'), rounding=ROUND_HALF_UP)
+        new_list_price = (line.unit_price * factor).quantize(Decimal('1.0000'))
         values = {
             'unit_price': new_list_price,
             }
@@ -57,11 +56,6 @@ class SubscriptionRecomputePriceStart(ModelView):
             ('fixed_amount', 'Fixed Amount'),
             ('percentage', 'Percentage'),
             ], 'Recompute Method', required=True)
-    unit_price = fields.Numeric('Unit Price', digits=price_digits,
-        states={
-            'invisible': Eval('method') != 'fixed_amount',
-            'required': Eval('method') == 'fixed_amount',
-            }, depends=['method'])
     date = fields.Date('Date', help="Update running subscriptios up to date",
         required=True)
     subscriptions = fields.Many2Many('sale.subscription', None, None,
@@ -73,16 +67,13 @@ class SubscriptionRecomputePriceStart(ModelView):
             'required': Eval('method') == 'percentage',
             },
         depends=['method'])
-    categories = fields.Many2Many('product.category', None, None, 'Categories',
+    unit_price = fields.Numeric('Unit Price', digits=price_digits,
         states={
-            'invisible': Eval('method') != 'percentage',
-            'required': Eval('method') == 'percentage',
-            }, depends=['method'])
-    services = fields.Many2Many('sale.subscription.service', None, None,
-        'Services', states={
             'invisible': Eval('method') != 'fixed_amount',
             'required': Eval('method') == 'fixed_amount',
             }, depends=['method'])
+    services = fields.Many2Many('sale.subscription.service', None, None,
+        'Services')
 
     @staticmethod
     def default_unit_price():
@@ -91,13 +82,6 @@ class SubscriptionRecomputePriceStart(ModelView):
     @staticmethod
     def default_method():
         return 'fixed_amount'
-
-    #@staticmethod
-    #def default_subscriptions():
-    #    Contract = Pool().get('contract')
-    #    references = ['14466', '14554', '14708', '14788', '14812', '14847', '14854', '14856', '14857', '14902', '14903', '14919', '14970', '14979', '15182', '15280', '14708', '15182']
-    #    contracts = Contract.search([('reference', 'in', references)])
-    #    return [c.id for c in contracts]
 
 
 class SubscriptionRecomputePrice(Wizard):
@@ -122,6 +106,11 @@ class SubscriptionRecomputePrice(Wizard):
             'unit_price': self.start.unit_price,
             }
 
+    def get_additional_args_percentage(self):
+        return {
+            'percentage': self.start.percentage,
+            }
+
     def transition_recompute_(self):
         pool = Pool()
         Line = pool.get('sale.subscription.line')
@@ -131,8 +120,12 @@ class SubscriptionRecomputePrice(Wizard):
         if method:
             domain = [
                 ('subscription.state', '=', 'running'),
-                ('start_date', '<=', self.start.date),
                 ('subscription', 'not in', self.start.subscriptions),
                 ]
+            if self.start.date:
+                domain.append(('start_date', '<=', self.start.date))
+            if self.start.services:
+                services = [s.id for s in list(self.start.services)]
+                domain.append(('service', 'in', services))
             method(Line.search(domain), **self.get_additional_args())
         return 'end'

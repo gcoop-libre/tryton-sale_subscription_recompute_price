@@ -13,7 +13,6 @@
         <field name="percentage" factor="100"/>
     </group>
     <field name="date"/>
-    <field name="categories" colspan="4"/>
     <field name="services" colspan="4"/>
     <field name="subscriptions" colspan="4"/>
 </form>

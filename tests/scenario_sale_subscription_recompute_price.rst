@@ -167,6 +167,23 @@ Recompute price of subscription fixed amount::
 
     >>> recompute = Wizard('sale.subscription.recompute_price')
     >>> recompute.form.method = 'fixed_amount'
-    >>> recompute.form.amount = Decimal('15.00')
+    >>> recompute.form.unit_price = Decimal('15.00')
+    >>> recompute.form.date = subscription.start_date
     >>> recompute.form.services.append(service)
     >>> recompute.execute('recompute_')
+    >>> subscription.reload()
+    >>> line, = subscription.lines
+    >>> line.unit_price
+    Decimal('15.00')
+
+Recompute price of subscription fixed amount::
+
+    >>> recompute = Wizard('sale.subscription.recompute_price')
+    >>> recompute.form.method = 'percentage'
+    >>> recompute.form.percentage = 0.21
+    >>> # recompute.form.services.append(service)
+    >>> recompute.execute('recompute_')
+    >>> subscription.reload()
+    >>> line, = subscription.lines
+    >>> line.unit_price
+    Decimal('18.1500')
