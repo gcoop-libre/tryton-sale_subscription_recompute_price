@@ -1,6 +1,6 @@
 # The COPYRIGHT file at the top level of this repository contains
 # the full copyright notices and license terms.
-from decimal import Decimal
+from decimal import Decimal, ROUND_HALF_UP
 
 from trytond.model import ModelView, fields
 from trytond.wizard import Wizard, StateView, StateTransition, Button
@@ -31,7 +31,8 @@ class Line(metaclass=PoolMeta):
 
     @classmethod
     def _recompute_price_by_percentage(cls, line, factor):
-        new_list_price = (line.unit_price * factor).quantize(Decimal('1.0000'))
+        new_list_price = (line.unit_price * factor).quantize(
+            Decimal('1.'), rounding=ROUND_HALF_UP)
         values = {
             'unit_price': new_list_price,
             }
