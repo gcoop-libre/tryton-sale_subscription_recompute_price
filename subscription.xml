@@ -1,8 +1,7 @@
 <?xml version="1.0"?>
-<!-- The COPYRIGHT file at the top level of this repository contains the full
-     copyright notices and license terms. -->
 <tryton>
     <data>
+
         <record model="ir.ui.view" id="recompute_price_start_view_form">
             <field name="model">sale.subscription.recompute_price.start</field>
             <field name="type">form</field>
@@ -13,6 +12,7 @@
             <field name="name">Recompute Price Subscriptions</field>
             <field name="wiz_name">sale.subscription.recompute_price</field>
         </record>
+
         <menuitem parent="sale_subscription.menu_subscription_form"
             sequence="40" action="act_recompute_price"
             id="menu_recompute_price"/>
@@ -21,5 +21,6 @@
             <field name="action" ref="act_recompute_price"/>
             <field name="group" ref="sale.group_sale"/>
         </record>
+
     </data>
 </tryton>
