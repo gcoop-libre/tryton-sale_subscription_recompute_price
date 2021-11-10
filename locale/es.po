@@ -2,14 +2,6 @@
 msgid ""
 msgstr "Content-Type: text/plain; charset=utf-8\n"
 
-msgctxt "field:sale.subscription.recompute_price.start,start_date:"
-msgid "Start Date"
-msgstr "Fecha inicial de servicio"
-
-msgctxt "field:sale.subscription.recompute_price.start,id:"
-msgid "ID"
-msgstr "Identificador"
-
 msgctxt "field:sale.subscription.recompute_price.start,method:"
 msgid "Recompute Method"
 msgstr "Método de recálculo"
@@ -22,9 +14,13 @@ msgctxt "field:sale.subscription.recompute_price.start,services:"
 msgid "Services"
 msgstr "Servicios"
 
+msgctxt "field:sale.subscription.recompute_price.start,start_date:"
+msgid "Start Date"
+msgstr "Fecha inicial de servicio"
+
 msgctxt "field:sale.subscription.recompute_price.start,subscriptions:"
-msgid "Subscriptions"
-msgstr "Suscripciones"
+msgid "Excluded subscriptions"
+msgstr "Suscripciones excluidas"
 
 msgctxt "field:sale.subscription.recompute_price.start,unit_price:"
 msgid "Unit Price"
@@ -59,8 +55,8 @@ msgid "Percentage"
 msgstr "Porcentaje"
 
 msgctxt "view:sale.subscription.recompute_price.start:"
-msgid "Recompute Price Subscriptions"
-msgstr "Recalcular precio de suscripciones"
+msgid "%"
+msgstr "%"
 
 msgctxt "wizard_button:sale.subscription.recompute_price,start,end:"
 msgid "Cancel"
