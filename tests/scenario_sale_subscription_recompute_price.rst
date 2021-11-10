@@ -31,7 +31,6 @@ Create sale user::
     >>> sale_user = User()
     >>> sale_user.name = 'Sale'
     >>> sale_user.login = 'sale'
-    >>> sale_user.main_company = company
     >>> sale_group, = Group.find([('name', '=', 'Sales')])
     >>> sale_user.groups.append(sale_group)
     >>> sale_user.save()
@@ -41,7 +40,6 @@ Create product user::
     >>> product_user = User()
     >>> product_user.name = 'Product'
     >>> product_user.login = 'product'
-    >>> product_user.main_company = company
     >>> product_group, = Group.find([('name', '=', 'Product Administration')])
     >>> product_user.groups.append(product_group)
     >>> product_user.save()
@@ -168,7 +166,7 @@ Recompute price of subscription fixed amount::
     >>> recompute = Wizard('sale.subscription.recompute_price')
     >>> recompute.form.method = 'fixed_amount'
     >>> recompute.form.unit_price = Decimal('15.00')
-    >>> recompute.form.date = subscription.start_date
+    >>> recompute.form.start_date = subscription.start_date
     >>> recompute.form.services.append(service)
     >>> recompute.execute('recompute_')
     >>> subscription.reload()
