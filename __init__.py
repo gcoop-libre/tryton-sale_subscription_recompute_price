@@ -4,8 +4,6 @@
 from trytond.pool import Pool
 from . import subscription
 
-__all__ = ['register']
-
 
 def register():
     Pool.register(

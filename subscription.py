@@ -6,7 +6,7 @@ from trytond.model import ModelView, fields
 from trytond.wizard import Wizard, StateView, StateTransition, Button
 from trytond.pool import Pool, PoolMeta
 from trytond.pyson import Eval
-from trytond.modules.product.product import price_digits
+from trytond.modules.product import price_digits
 
 
 class Line(metaclass=PoolMeta):
@@ -23,7 +23,8 @@ class Line(metaclass=PoolMeta):
     def recompute_price_by_fixed_amount(cls, lines, unit_price):
         to_write = []
         for line in lines:
-            new_values = line._recompute_price_by_fixed_amount(line, unit_price)
+            new_values = line._recompute_price_by_fixed_amount(line,
+                unit_price)
             if new_values:
                 to_write.extend(([line], new_values))
         if to_write:
@@ -53,6 +54,7 @@ class Line(metaclass=PoolMeta):
 class SubscriptionRecomputePriceStart(ModelView):
     'Recompute Price - Start'
     __name__ = 'sale.subscription.recompute_price.start'
+
     method = fields.Selection([
             ('fixed_amount', 'Fixed Amount'),
             ('percentage', 'Percentage'),
@@ -60,7 +62,7 @@ class SubscriptionRecomputePriceStart(ModelView):
     start_date = fields.Date('Start Date', help="Update running subscriptios"
         " up to date")
     subscriptions = fields.Many2Many('sale.subscription', None, None,
-        'Subscriptions', domain=[('state', '=', 'running')],
+        'Excluded subscriptions', domain=[('state', '=', 'running')],
         help="Do not update those Subscriptions.")
     percentage = fields.Float('Percentage', digits=(16, 4),
         states={
@@ -90,11 +92,12 @@ class SubscriptionRecomputePriceStart(ModelView):
 
     @classmethod
     def view_attributes(cls):
-        return super(SubscriptionRecomputePriceStart, cls).view_attributes() + [
+        return super().view_attributes() + [
             ('/form//label[@id="percentage_"]', 'states', {
                     'invisible': Eval('method') != 'percentage',
                     }),
             ]
+
 
 class SubscriptionRecomputePrice(Wizard):
     'Subscription Recompute Price'
